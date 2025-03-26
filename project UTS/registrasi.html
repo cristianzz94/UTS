@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Anggota Perpustakaan</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #007bff;
+            --background-color: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #f2f2f2;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 10px auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        input:not([type="radio"]),
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>📚 Registrasi Anggota Baru Perpustakaan</h1>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" required pattern="[A-Za-z ]{3,}">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telepon">Nomor Telepon</label>
+                <input type="tel" id="telepon" pattern="[0-9]{10,13}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="alamat">Alamat Lengkap</label>
+                <textarea id="alamat" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Jenis Kelamin</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="laki" name="gender" value="Laki-laki" required>
+                        <label for="laki">Laki-laki</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="perempuan" name="gender" value="Perempuan">
+                        <label for="perempuan">Perempuan</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="tgl_lahir">Tanggal Lahir</label>
+                <input type="date" id="tgl_lahir" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" minlength="8" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Konfirmasi Password</label>
+                <input type="password" id="confirm_password" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Daftar Sekarang</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validasi Form
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const telepon = document.getElementById('telepon').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            // Validasi Password
+            if(password !== confirmPassword) {
+                alert("Konfirmasi password tidak cocok!");
+                document.getElementById('confirm_password').focus();
+                return;
+            }
+
+            // Validasi Email
+            if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert("Format email tidak valid!");
+                document.getElementById('email').focus();
+                return;
+            }
+
+            // Simpan data ke Session Storage
+            const userData = {
+                nama: nama,
+                email: email,
+                telepon: telepon,
+                alamat: document.getElementById('alamat').value,
+                jenis_kelamin: document.querySelector('input[name="gender"]:checked').value,
+                tgl_lahir: document.getElementById('tgl_lahir').value
+            };
+            
+            sessionStorage.setItem('latestRegistration', JSON.stringify(userData));
+
+            // Redirect ke halaman anggota
+            window.location.href = 'anggota.html';
+        });
+    </script>
+</body>
+</html>
